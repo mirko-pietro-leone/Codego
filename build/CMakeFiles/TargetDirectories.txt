@@ -1,0 +1,3 @@
+C:/Users/mpleo/Desktop/Codego/build/CMakeFiles/CodeGo.dir
+C:/Users/mpleo/Desktop/Codego/build/CMakeFiles/edit_cache.dir
+C:/Users/mpleo/Desktop/Codego/build/CMakeFiles/rebuild_cache.dir

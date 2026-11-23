@@ -1,0 +1,26 @@
+[
+{
+  "directory": "C:/Users/mpleo/Desktop/Codego/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -IC:/Users/mpleo/Desktop/Codego/include -g -std=c++20 -o CMakeFiles\\CodeGo.dir\\src\\main.cpp.obj -c C:\\Users\\mpleo\\Desktop\\Codego\\src\\main.cpp",
+  "file": "C:/Users/mpleo/Desktop/Codego/src/main.cpp",
+  "output": "C:/Users/mpleo/Desktop/Codego/build/CMakeFiles/CodeGo.dir/src/main.cpp.obj"
+},
+{
+  "directory": "C:/Users/mpleo/Desktop/Codego/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -IC:/Users/mpleo/Desktop/Codego/include -g -std=c++20 -o CMakeFiles\\CodeGo.dir\\src\\card.cpp.obj -c C:\\Users\\mpleo\\Desktop\\Codego\\src\\card.cpp",
+  "file": "C:/Users/mpleo/Desktop/Codego/src/card.cpp",
+  "output": "C:/Users/mpleo/Desktop/Codego/build/CMakeFiles/CodeGo.dir/src/card.cpp.obj"
+},
+{
+  "directory": "C:/Users/mpleo/Desktop/Codego/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -IC:/Users/mpleo/Desktop/Codego/include -g -std=c++20 -o CMakeFiles\\CodeGo.dir\\src\\MemoryBoard.cpp.obj -c C:\\Users\\mpleo\\Desktop\\Codego\\src\\MemoryBoard.cpp",
+  "file": "C:/Users/mpleo/Desktop/Codego/src/MemoryBoard.cpp",
+  "output": "C:/Users/mpleo/Desktop/Codego/build/CMakeFiles/CodeGo.dir/src/MemoryBoard.cpp.obj"
+},
+{
+  "directory": "C:/Users/mpleo/Desktop/Codego/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -IC:/Users/mpleo/Desktop/Codego/include -g -std=c++20 -o CMakeFiles\\CodeGo.dir\\src\\player.cpp.obj -c C:\\Users\\mpleo\\Desktop\\Codego\\src\\player.cpp",
+  "file": "C:/Users/mpleo/Desktop/Codego/src/player.cpp",
+  "output": "C:/Users/mpleo/Desktop/Codego/build/CMakeFiles/CodeGo.dir/src/player.cpp.obj"
+}
+]

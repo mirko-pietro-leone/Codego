@@ -1,0 +1,6 @@
+# ninja log v7
+10	167	8170958712100298	build.ninja	4e5ec87172a79fce
+10	167	8170958712038663	C:/Users/mpleo/Desktop/Codego/build/cmake_install.cmake	4e5ec87172a79fce
+24	883	8170479886411141	CMakeFiles/CodeGo.dir/src/main.cpp.obj	d44fa477743bbd55
+368	510	8170487073391984	CodeGo.exe	ed65e6762b774d21
+20	367	8170487069904402	CMakeFiles/CodeGo.dir/src/card.cpp.obj	6b45acc88e249a77
