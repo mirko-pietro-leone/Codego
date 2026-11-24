@@ -48,3 +48,5 @@ int MemoryBoard ::getoccupato()const {
 const std::vector<Card>& MemoryBoard :: getCarte() const{
 return carte;
 }
+
+void resetplancia();

@@ -12,7 +12,8 @@ add_executable(CodeGo
     src/card.cpp
     include/MemoryBoard.hpp
     src/MemoryBoard.cpp
-    src/player.cpp
+    src/Player.cpp
+     include/Player.hpp
 )
 
 target_include_directories(CodeGo PRIVATE

@@ -17,7 +17,7 @@ public:
 
 bool getspazio (const Card& carta) const; //spazio restante
 
-bool aggiungicarta(Card&& carta);
+bool aggiungicarta(Card&& carta);  //aggiungi carta alla plancia 
 
 bool popcarte ();
 
