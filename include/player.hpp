@@ -22,10 +22,9 @@ Player(int idplayer);
  Card giocaCarta(int i);
 
  void aggiungipunti(int punti);
-}
+
 
 int getpunteggioTot() const;
-#endif // PLAYER_HPP
 
 void aggiungicommenti();
 
@@ -36,3 +35,5 @@ const MemoryBoard& getplancia() const;
 void giocacarta(Card&& carta);
 
 bool rimuoviultimacarta();
+}
+#endif // PLAYER_HPP
