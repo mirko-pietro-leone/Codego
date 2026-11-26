@@ -51,10 +51,14 @@ void Player:: resetPlancia(){
     plancia.reset();
 }
 
-bool Player :: giocacarta(Card&& carta){
+bool Player :: allocaCarta(Card&& carta){
       return plancia.aggiungicarta(std::move(carta));
 }
 
 bool Player:: rimuoviultimacarta(){
     return plancia.popcarte();
+}
+
+std::size_t Player:: getNumeroMano()const{
+        return mano.size();
 }

@@ -20,6 +20,9 @@ class Game {
     void inizializzaRound();
     void inizializzaPartita();
     void terminaRound();
+    void passaMano();
+    void eseguiTurno(const std::vector<int>& indicescelti); //indicescelti è l indice delle carte scelte dai giocatori
+    void gestisciCarta(std::size_t indiceGiocatore, Card&& carta);
 };
 
 #endif // GAME_HPP

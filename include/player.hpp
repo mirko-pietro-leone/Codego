@@ -31,11 +31,13 @@ int getCommentiTot()const;
 
 const MemoryBoard& getplancia() const;
 
-bool giocacarta(Card&& carta);
+bool allocaCarta(Card&& carta);
 
 bool rimuoviultimacarta();
 
 void resetPlancia();
+
+std:: size_t getNumeroMano()const; // restituisce il numero di carte presenti nella mano 
 };
 
 #endif // PLAYER_HPP

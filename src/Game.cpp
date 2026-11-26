@@ -1,5 +1,6 @@
 #include "Game.hpp"
 #include <stdexcept>
+#include <iostream>
 
 
 Game :: Game (int numeroPlayer): numeroPlayer(numeroPlayer), roundCorrente(1){
@@ -84,4 +85,77 @@ void Game::terminaRound(){
         }
     }
     
+}
+
+void Game :: passaMano(){                               //passa mano
+    std::vector<std::vector<Card>> manitemp;
+    manitemp.reserve(giocatori.size());
+    
+    for(size_t i = 0; i<giocatori.size();i++){
+        manitemp.push_back(giocatori[i].cediMano());
+    }
+
+     for(size_t i = 0; i<giocatori.size();i++){
+        std::size_t prossimo = (i+1)%giocatori.size();
+        giocatori[prossimo].riceviMano(std::move(manitemp[i]));
+    }
+}
+
+void Game::eseguiTurno(const std::vector<int>& indicescelti){
+    if(indicescelti.size()!= giocatori.size()){
+        throw std::invalid_argument("Numoro di scelte non valido");
+    }
+    
+    for (std::size_t i=0; i<giocatori.size(); i++){
+        int indice =indicescelti[i];
+        if(indice < 0 || static_cast<std::size_t>(indice) >= giocatori[i].getNumeroMano()){
+            throw std::invalid_argument("Numero di carte nella mano non valido");
+        }
+        
+    }
+
+    std::vector<Card> carteScelte;                      // preleviamo le carte scelte 
+    carteScelte.reserve(giocatori.size());
+    
+    for(std::size_t i=0; i <giocatori.size(); i++){
+        Card carta= giocatori[i].giocaCarta(indicescelti[i]);
+        carteScelte.push_back(std::move(carta));
+    }
+
+    for(size_t i=0; i<giocatori.size(); i++){                       // gestione delle carte 
+        gestisciCarta(i,std::move(carteScelte[i]));
+    }
+
+    passaMano();                                            //passaggio delle mani        
+
+}
+
+void Game:: gestisciCarta(std:: size_t indiceGiocatore, Card&& carta){
+    switch (carta.getType())
+    {
+    case CardType::Char:
+    case CardType:: Int:
+    case CardType::Double:
+        bool test =giocatori[indiceGiocatore].allocaCarta(std::move(carta));
+        if(!test){
+            std::cout << "Overflow: termina il round" << std::endl;
+        }
+        break;
+
+    case CardType::Pointer:
+    break;
+
+    case CardType::Array:
+    break;
+
+    case CardType::Pop:
+    break;
+
+    case CardType::Comment:
+        giocatori[indiceGiocatore].aggiungiCommenti();
+    break;
+
+    default:
+        break;
+    }
 }
