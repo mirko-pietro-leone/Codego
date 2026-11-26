@@ -35,11 +35,11 @@ int Player::getPunteggioTot() const {
     return punteggioTot;
 }
 
-void Player::aggiungicommenti(){
+void Player::aggiungiCommenti(){
     numerocom += 1;
 }
 
-int Player::getcoomentiTot() const{
+int Player::getCommentiTot() const{
     return numerocom;
 }
 
@@ -47,7 +47,7 @@ const MemoryBoard& Player:: getplancia() const{
     return plancia;
 }
 
-void Player:: resetplancia(){
+void Player:: resetPlancia(){
     plancia.reset();
 }
 

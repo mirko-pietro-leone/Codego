@@ -1,4 +1,4 @@
-#include "card.hpp"
+#include "Card.hpp"
 #include <stdexcept>
 
  Card:: Card(CardType type) : id(1000 + ++contatore), type(type), costo(0), punteggio(0){

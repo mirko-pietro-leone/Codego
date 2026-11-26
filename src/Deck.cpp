@@ -9,22 +9,23 @@ Deck:: Deck(){
 
 void Deck:: inizializzaMazzo(){
     mazzo.clear();
-    for (int i=0; i<12; i++){
+    for (int i=0; i<21; i++){
         mazzo.emplace_back(CardType::Char);
         mazzo.emplace_back(CardType::Int);
         mazzo.emplace_back(CardType::Double);
     }
-    for (int i=0;  i<8; i++){
+    for (int i=0;  i<14; i++){
         mazzo.emplace_back(CardType::Pointer);
     }
-    for (int i=0; i<6; i++){
+    for (int i=0; i<11; i++){
         mazzo.emplace_back(CardType::Array);
     }
-    for (int i=0; i<5; i++){
+    for (int i=0; i<9; i++){
         mazzo.emplace_back(CardType::Pop);
+    }
+    for (int i=0; i<8; i++){
         mazzo.emplace_back(CardType::Comment);
     }
-
     std::random_device rd;
     std::mt19937 generatore(rd());
     std::shuffle(mazzo.begin(),mazzo.end(),generatore);

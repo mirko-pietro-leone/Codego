@@ -23,17 +23,19 @@ Player(int idplayer);
 
  void aggiungipunti(int punti);
 
+int getPunteggioTot() const;
 
-int getpunteggioTot() const;
+void aggiungiCommenti();
 
-void aggiungicommenti();
-
-int getcommentiTot()const;
+int getCommentiTot()const;
 
 const MemoryBoard& getplancia() const;
 
-void giocacarta(Card&& carta);
+bool giocacarta(Card&& carta);
 
 bool rimuoviultimacarta();
+
+void resetPlancia();
 }
+
 #endif // PLAYER_HPP
