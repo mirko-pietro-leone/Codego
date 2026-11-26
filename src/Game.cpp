@@ -29,7 +29,7 @@ Game :: Game (int numeroPlayer): numeroPlayer(numeroPlayer), roundCorrente(1){
     }
 }
 
-void Game::inizializzaPartita(){
+void Game::inizializzaPartita(){                        
     mazzo.inizializzaMazzo();
 }
 
@@ -37,4 +37,51 @@ void Game ::inizializzaRound(){
     for (Player& giocatore: giocatori){
         giocatore.riceviMano(mazzo.distribuisciMano(carteDistribuite));
      }
+}
+
+void Game::terminaRound(){
+    //calclolo punti round attuale
+    for(Player& giocatore: giocatori){
+        giocatore.aggiungipunti(calcola.calcolaPunteggioBase(giocatore.getplancia()));
+    }
+    //reset plancia
+    for(Player& giocatore: giocatori){
+        giocatore.resetPlancia();
+    }
+   
+    if(roundCorrente<3){
+    roundCorrente++;
+    } else{
+
+        int numerocommenti= 0;
+        int commenti_max = giocatori.front().getCommentiTot();
+        int commenti_min = giocatori.front().getCommentiTot();
+        
+        for(const Player& giocatore: giocatori){      //controllo chi ha il max e min di commenti
+
+            numerocommenti= giocatore.getCommentiTot();
+            if(numerocommenti>=commenti_max){
+                commenti_max= numerocommenti;
+                
+            } 
+            if(numerocommenti<= commenti_min){
+                commenti_min=numerocommenti;
+            }
+        } 
+        
+        if(commenti_max!=commenti_min){                 //assegno punti commento
+
+            for(Player& giocatore:giocatori){
+               numerocommenti= giocatore.getCommentiTot();
+
+                 if (numerocommenti == commenti_max){
+                    giocatore.aggiungipunti(6);
+                 }
+                 if (numerocommenti == commenti_min){
+                    giocatore.aggiungipunti(-6);
+                }
+            }
+        }
+    }
+    
 }

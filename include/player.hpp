@@ -36,6 +36,6 @@ bool giocacarta(Card&& carta);
 bool rimuoviultimacarta();
 
 void resetPlancia();
-}
+};
 
 #endif // PLAYER_HPP
