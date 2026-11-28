@@ -3,7 +3,7 @@
 #include <iostream>
 
 
-Game :: Game (int numeroPlayer): numeroPlayer(numeroPlayer), roundCorrente(1){
+Game :: Game (int numeroPlayer): numeroPlayer(numeroPlayer), roundCorrente(1), partitaFinita(false){
    
     if(numeroPlayer >5 || numeroPlayer<2){
         throw std::invalid_argument ("Numero di giocatori errato");
@@ -30,9 +30,13 @@ Game :: Game (int numeroPlayer): numeroPlayer(numeroPlayer), roundCorrente(1){
     }
 }
 
+
+
 void Game::inizializzaPartita(){                        
     mazzo.inizializzaMazzo();
 }
+
+
 
 void Game ::inizializzaRound(){
     for (Player& giocatore: giocatori){
@@ -40,7 +44,12 @@ void Game ::inizializzaRound(){
      }
 }
 
+
+
 void Game::terminaRound(){
+    if(partitaFinita){
+        return;
+    }
     //calclolo punti round attuale
     for(Player& giocatore: giocatori){
         giocatore.aggiungipunti(calcola.calcolaPunteggioBase(giocatore.getplancia()));
@@ -48,11 +57,12 @@ void Game::terminaRound(){
     //reset plancia
     for(Player& giocatore: giocatori){
         giocatore.resetPlancia();
+        giocatore.svuotaMano();
     }
    
     if(roundCorrente<3){
     roundCorrente++;
-    } else{
+    } else {
 
         int numerocommenti= 0;
         int commenti_max = giocatori.front().getCommentiTot();
@@ -83,9 +93,12 @@ void Game::terminaRound(){
                 }
             }
         }
+       partitaFinita = true; 
     }
     
 }
+
+
 
 void Game :: passaMano(){                               //passa mano
     std::vector<std::vector<Card>> manitemp;
@@ -101,13 +114,19 @@ void Game :: passaMano(){                               //passa mano
     }
 }
 
-void Game::eseguiTurno(const std::vector<int>& indicescelti){
+
+
+void Game::eseguiTurno(const std::vector<Scelta>& indicescelti){
+    bool fineRound = false;
+    if (partitaFinita) {
+        throw std::logic_error("La partita è terminata");
+    }
     if(indicescelti.size()!= giocatori.size()){
         throw std::invalid_argument("Numoro di scelte non valido");
     }
     
     for (std::size_t i=0; i<giocatori.size(); i++){
-        int indice =indicescelti[i];
+        int indice =indicescelti[i].indiceCarta;
         if(indice < 0 || static_cast<std::size_t>(indice) >= giocatori[i].getNumeroMano()){
             throw std::invalid_argument("Numero di carte nella mano non valido");
         }
@@ -118,30 +137,45 @@ void Game::eseguiTurno(const std::vector<int>& indicescelti){
     carteScelte.reserve(giocatori.size());
     
     for(std::size_t i=0; i <giocatori.size(); i++){
-        Card carta= giocatori[i].giocaCarta(indicescelti[i]);
+        Card carta= giocatori[i].giocaCarta(indicescelti[i].indiceCarta);
         carteScelte.push_back(std::move(carta));
     }
 
     for(size_t i=0; i<giocatori.size(); i++){                       // gestione delle carte 
-        gestisciCarta(i,std::move(carteScelte[i]));
+        bool risultato = gestisciCarta(i,std::move(carteScelte[i]));
+        if(!risultato){
+            fineRound = true;
+        }
     }
-
-    passaMano();                                            //passaggio delle mani        
-
+    if (fineRound ){
+        terminaRound();
+    } else {
+        passaMano();                                            //passaggio delle mani        
+    }
 }
 
-void Game:: gestisciCarta(std:: size_t indiceGiocatore, Card&& carta){
+
+
+bool Game:: gestisciCarta(std:: size_t indiceGiocatore, Card&& carta, std::size_t indiceBersaglio){
     switch (carta.getType())
     {
     case CardType::Char:
     case CardType:: Int:
-    case CardType::Double:
-        bool test =giocatori[indiceGiocatore].allocaCarta(std::move(carta));
-        if(!test){
+    case CardType::Double:{
+        
+        bool allocata =giocatori[indiceGiocatore].allocaCarta(std::move(carta));
+        if(!allocata){
             std::cout << "Overflow: termina il round" << std::endl;
+            return false;
         }
-        break;
 
+       if(giocatori[indiceGiocatore].getplancia().getoccupato() ==20){          //controllo se la carta occupata occupa tutta la plancia
+            std::cout << "Memoria massima" << std::endl;
+            return false;
+        }
+
+        return true;
+    }
     case CardType::Pointer:
     break;
 
@@ -153,9 +187,30 @@ void Game:: gestisciCarta(std:: size_t indiceGiocatore, Card&& carta){
 
     case CardType::Comment:
         giocatori[indiceGiocatore].aggiungiCommenti();
-    break;
+    return true;
 
     default:
         break;
     }
+}
+
+
+
+bool Game::bersaglioValido(std::size_t indiceBersaglio) const{  //controlliamo se la plancia del giocatore è vuota in modo da poter usare pointer e pop
+    if(indiceBersaglio>= giocatori.size()){
+        return false;
+    }
+
+    if(giocatori[indiceBersaglio].getplancia().getCarte().empty()){
+        return false ;
+    }
+    
+    return true;
+}
+
+bool Game:: gestisciPop( std::size_t indiceBersaglio){
+    if(!bersaglioValido(indiceBersaglio)){
+        return false;
+    }
+   return giocatori[indiceBersaglio].rimuoviultimacarta();
 }

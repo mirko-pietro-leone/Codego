@@ -59,6 +59,10 @@ bool Player:: rimuoviultimacarta(){
     return plancia.popcarte();
 }
 
+void Player:: svuotaMano(){
+    mano.clear();
+}
+
 std::size_t Player:: getNumeroMano()const{
         return mano.size();
 }

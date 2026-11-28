@@ -37,6 +37,8 @@ bool rimuoviultimacarta();
 
 void resetPlancia();
 
+void svuotaMano();
+
 std:: size_t getNumeroMano()const; // restituisce il numero di carte presenti nella mano 
 };
 
